@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Data.migration
+namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(EmployeeContext))]
-    [Migration("20240309032337_inital-third")]
-    partial class initalthird
+    [Migration("20240309034007_intial-migration")]
+    partial class intialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

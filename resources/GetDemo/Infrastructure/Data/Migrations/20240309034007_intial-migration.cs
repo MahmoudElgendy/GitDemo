@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace Infrastructure.Data.migration
+namespace Infrastructure.Data.Migrations
 {
-    public partial class initalmigration : Migration
+    public partial class intialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,7 @@ namespace Infrastructure.Data.migration
                     FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
                     ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

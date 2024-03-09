@@ -25,10 +25,10 @@ namespace Infrastructure.Data
             return employee;
         }
 
-        public async Task Insert(Employee employee)
+        public void Insert(Employee employee)
         {
-            await _context.Employees.AddAsync(employee);
-            await _context.SaveChangesAsync();
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
         }
 
         public async Task Update(Employee employee)
@@ -36,13 +36,13 @@ namespace Infrastructure.Data
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
         }
-        public async Task Delete(int id)
+        public void Delete(int id)
         {
-            var employeeInDb = await _context.Employees.FirstOrDefaultAsync(p => p.Id == id);
+            var employeeInDb = _context.Employees.FirstOrDefault(p => p.Id == id);
             if (employeeInDb != null)
             {
                 _context.Employees.Remove(employeeInDb);
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
         }
     }

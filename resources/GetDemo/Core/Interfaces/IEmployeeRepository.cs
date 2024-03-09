@@ -6,8 +6,8 @@ namespace Core.Interfaces
     {
         Task<IEnumerable<Employee>> GetEmployeesAsync();
         Task<Employee> GetEmployeeByIdAsync(int id);
-        Task Insert(Employee employee);
-        Task Update(Employee employee);
-        Task Delete(int id);
+        void Insert(Employee employee);
+        void Update(Employee employee);
+        void Delete(int id);
     }
 }

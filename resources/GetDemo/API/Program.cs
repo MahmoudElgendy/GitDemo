@@ -1,3 +1,5 @@
+using API.Profiles;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +10,8 @@ builder.Services.AddDbContext<EmployeeContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Defaultconnection"));
 });
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

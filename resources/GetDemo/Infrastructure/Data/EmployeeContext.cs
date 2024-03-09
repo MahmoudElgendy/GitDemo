@@ -29,16 +29,15 @@ namespace Infrastructure.Data
                 .Property(p => p.LastName)
                 .IsRequired()
                 .HasMaxLength(30);
+            modelBuilder.Entity<Employee>().Property(p => p.Salary).HasPrecision(9, 2);
 
             modelBuilder.Entity<Employee>()
                 .HasOne(e => e.Manager)
                 .WithMany()
-                .HasForeignKey(e => e.ManagerId)
-                .IsRequired(false);
+                .HasForeignKey(e => e.ManagerId);
 
             modelBuilder.Entity<Employee>()
-                .Property(e => e.ManagerId)
-                .IsRequired(false);
+                .Property(e => e.ManagerId);
 
         }
     }

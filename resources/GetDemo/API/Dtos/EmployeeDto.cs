@@ -14,6 +14,7 @@ namespace API.Dtos
         public string? MiddleName { get; set; }
         [MaxLength(30)]
         public string LastName { get; set; }
+        [Range(0, 1000000)]
         public decimal Salary { get; set; }
         public int? ManagerId { get; set; }
     }

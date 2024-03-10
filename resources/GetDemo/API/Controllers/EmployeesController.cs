@@ -25,26 +25,37 @@ namespace API.Controllers
             var employees = await _employeeRepository.GetEmployeesAsync();
             return Ok(_mapper.Map<IEnumerable<EmployeeDto>>(employees));
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeDto>> GetEmployeeById(int id)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            return (employee != null) ? Ok(_mapper.Map<EmployeeDto>(employee)) : NotFound();
+            return (employee == null) ? NotFound() : Ok(_mapper.Map<EmployeeDto>(employee));
         }
         [HttpPost]
-        public void Insert(EmployeeDto employeeDto)
+        public async Task<IActionResult> Insert(EmployeeDto employeeDto)
         {
-            _employeeRepository.Insert(_mapper.Map<Employee>(employeeDto));
+            await _employeeRepository.InsertAsync(_mapper.Map<Employee>(employeeDto));
+            return CreatedAtAction(nameof(GetEmployeeById), new { id = employeeDto.Id }, employeeDto);
         }
-        [HttpPut]
-        public void Update(EmployeeDto employeeDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, EmployeeDto employeeDto)
         {
-            _employeeRepository.Update(_mapper.Map<Employee>(employeeDto));
+            if (id != employeeDto.Id)
+                return BadRequest();
+
+            await _employeeRepository.UpdateAsync(_mapper.Map<Employee>(employeeDto));
+            return NoContent();
         }
-        [HttpDelete]
-        public void Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
-            _employeeRepository.Delete(id);
+            var employeeToDelete = await _employeeRepository.GetEmployeeByIdAsync(id);
+            if (employeeToDelete == null)
+                return NotFound();
+
+            await _employeeRepository.Deleteasync(employeeToDelete);
+            return NoContent();
         }
     }
 }

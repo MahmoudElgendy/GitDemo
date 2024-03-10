@@ -12,38 +12,31 @@ namespace Infrastructure.Data
         {
             _context = context;
         }
+
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
-
         {
-            var employees = await _context.Employees.ToListAsync();
-            return employees;
+            return await _context.Employees.ToListAsync();
         }
-
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
-            var employee = await _context.Employees.FirstOrDefaultAsync(p => p.Id == id);
-            return employee;
+            return await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
         }
-
-        public void Insert(Employee employee)
+        public async Task InsertAsync(Employee employee)
         {
             _context.Employees.Add(employee);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public async Task Update(Employee employee)
+        public async Task UpdateAsync(Employee employee)
         {
             _context.Employees.Update(employee);
             await _context.SaveChangesAsync();
         }
-        public void Delete(int id)
+        public async Task Deleteasync(Employee employee)
         {
-            var employeeInDb = _context.Employees.FirstOrDefault(p => p.Id == id);
-            if (employeeInDb != null)
-            {
-                _context.Employees.Remove(employeeInDb);
-                _context.SaveChangesAsync();
-            }
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
         }
+
     }
 }
